@@ -4,7 +4,7 @@ const cors = require("cors");
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 
 app.use(cors({origin: true, credentials: true}));
 
