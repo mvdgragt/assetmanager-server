@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 // const bodyParser = require('body-parser')
 
 app.use(cors({
-    origin: "https://assetmanager.netlify.com/",
+    origin: "*",
 }));
 
 
