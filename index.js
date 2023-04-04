@@ -6,14 +6,11 @@ const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
 // const bodyParser = require('body-parser')
 
-app.use(cors());
+app.use(cors({
+    origin: "https://assetmanager.netlify.com/",
+}));
 
-let allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Headers', "*");
-    next();
-  }
-  app.use(allowCrossDomain);
+
 
 // Set headers for preflight request
 // app.options('/onloan', {mode:'cors'});
