@@ -13,8 +13,8 @@ const mysql = require("mysql2")
 //     password: `${process.env.DB_PASSSWORD}`,
 //     database: `${process.env.DB_DATABASE}`
 // });
-const urlDB = process.env.urlDB
-const pool = mysql.createPool(urlDB);
+
+const pool = mysql.createPool("mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway");
 
 let sql2 = "SELECT SerialNumber FROM movements INNER JOIN assets ON movements.AssetID = assets.id INNER JOIN persons ON movements.PersonID = persons.id WHERE persons.FirstName = 'PYP' AND persons.LastName = '6' AND movements.BookInDate IS NULL AND assets.AssetTypeID=5"
 
