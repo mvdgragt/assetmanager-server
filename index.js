@@ -14,7 +14,7 @@ app.use(cors({origin: true, credentials: true}));
 // app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
 app.use(express.static('build'))
-app.use(bodyParser.json({ limit: '50mb' }));
+// app.use(bodyParser.json({ limit: '50mb' }));
 //ROUTES//
 
 // get data from monthlyEquipmenUpload
