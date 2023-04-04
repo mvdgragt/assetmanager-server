@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 app.use(cors({origin: true, credentials: true}));
 
 // Set headers for preflight request
-app.options('/onloan', {mode:'cors'});
+// app.options('/onloan', {mode:'cors'});
 
 // app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
@@ -21,7 +21,6 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
     const montlyAssets = await pool.query("SELECT * FROM monthlyequipimport");
-    // res.header("Access-Control-Allow-Origin", "https://assetmanager.netlify.app");
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 res.json(montlyAssets[0])
@@ -96,8 +95,10 @@ app.get("/movements", async(req,res) => {
 //get all assets
 app.get("/allAssets", async(req,res) => {
     try {
-       const allAssets = await pool.query("SELECT id, AssetNumber, SerialNumber, PurchaseDate, PurchaseValue, AssetDescription, CostCenter, at.AssetType FROM assets a LEFT JOIN assettypes at ON at.ID = a.AssetTypeID");
-        res.json(allAssets[0])
+ //      const allAssets = await pool.query("SELECT AssetNumber, SerialNumber, PurchaseDate, PurchaseValue, AssetDescription, CostCenter, at.AssetType FROM assets a LEFT JOIN assettypes at ON at.ID = a.AssetTypeID");
+       const allAssets = await pool.query("SELECT * FROM assets");
+
+       res.json(allAssets[0])
     } catch (err) {
         console.error(err.message);
     }
@@ -239,6 +240,6 @@ app.get("/movements/:id", async (req,res) => {
     }
 })
 
-app.listen(port, () => {
+app.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
