@@ -6,7 +6,7 @@ const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
 // const bodyParser = require('body-parser')
 
-app.use(require('cors')())
+app.use(cors());
 
 // Set headers for preflight request
 // app.options('/onloan', {mode:'cors'});
