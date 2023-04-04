@@ -16,7 +16,7 @@ app.use(middleware.decodeToken);
 app.use(express.static('build'))
 // app.use(bodyParser.json({ limit: '50mb' }));
 //ROUTES//
-
+//test
 // get data from monthlyEquipmenUpload
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
