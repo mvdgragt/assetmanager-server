@@ -5,18 +5,6 @@ const pool = require("./db");
 const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser')
-// const readXlsxFile = require('read-excel-file/node');
-// const multer = require('multer')
-// const fs = require('fs')
-// const path = require('path')
-
-//middleware
-// app.use(cors({
-//    origin: "https://assetmanager.netlify.app",
-//   origin: "*",
-//   credentials: false
-// }));
-
 
 app.use(cors({origin: true, credentials: true}));
 
