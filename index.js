@@ -23,7 +23,7 @@ app.use(cors({
 }));
 
 // Set headers for preflight request
-app.options('/onloan', cors());
+app.options('/onloan', {mode:'cors'});
 
 // app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
