@@ -17,10 +17,8 @@ const bodyParser = require('body-parser')
 //   credentials: false
 // }));
 
-app.use(cors({
-       origin: "assetmanager.netlify.app",
 
-}));
+app.use(cors({origin: true, credentials: true}));
 
 // Set headers for preflight request
 app.options('/onloan', {mode:'cors'});
