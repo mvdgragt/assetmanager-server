@@ -14,7 +14,7 @@ const mysql = require("mysql2")
 //     database: `${process.env.DB_DATABASE}`
 // });
 
-const pool = mysql.createPool(`process.env.${MySQL.MYSQL_URL}`);
+const pool = mysql.createPool(`${process.env.MySQL.MYSQL_URL}`);
 
 let sql2 = "SELECT SerialNumber FROM movements INNER JOIN assets ON movements.AssetID = assets.id INNER JOIN persons ON movements.PersonID = persons.id WHERE persons.FirstName = 'PYP' AND persons.LastName = '6' AND movements.BookInDate IS NULL AND assets.AssetTypeID=5"
 
