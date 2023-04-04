@@ -18,7 +18,7 @@ const bodyParser = require('body-parser')
 // }));
 
 app.use(cors({
-       origin: "*",
+       origin: "assetmanager.netlify.app",
 
 }));
 
