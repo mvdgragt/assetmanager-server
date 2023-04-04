@@ -1,9 +1,25 @@
+require("dotenv").config();
 
 const mysql = require("mysql2")
 
+// const pool = mysql.createPool({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "assetmanager"
+// });
 
 const urlDB = `mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`
 
-const pool = mysql.createPool(urlDB);
+const pool = mysql.createPool(`mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`);
+
+// const pool = mysql.createPool({
+//     host: `${process.env.DB_HOST}`,
+//     user: `${process.env.DB_USER}`,
+//     password: `${process.env.DB_PASSSWORD}`,
+//     database: `${process.env.DB_DATABASE}`
+// });
+
+
 
 module.exports = pool.promise();
