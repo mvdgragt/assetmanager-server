@@ -9,25 +9,11 @@ const port = process.env.PORT || 5000;
 app.use(cors({
     origin: "*",
 }));
-// app.use(cors({ 
-//     origin: 'https://assetmanager.netlify.com'
-//   }))
-
-// Set headers for preflight request
-// app.options('/onloan', {mode:'cors'});
-
-// app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
 app.use(express.static('build'))
-// app.use(bodyParser.json({ limit: '50mb' }));
-//ROUTES//
-//test
-// get data from monthlyEquipmenUpload
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
     const montlyAssets = await pool.query("SELECT * FROM monthlyequipimport");
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 res.json(montlyAssets[0])
     
 } catch (err) {
