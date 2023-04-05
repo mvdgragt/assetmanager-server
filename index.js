@@ -5,11 +5,16 @@ const pool = require("./db");
 const middleware = require('./src/middleware/index');
 // const bodyParser = require('body-parser')
 
-app.use(cors({
-    origin: "*",
-}));
-app.use(middleware.decodeToken);
+//middleware
+app.use(cors());
 app.use(express.json()); //req.body
+app.use(middleware.decodeToken);
+
+// app.use(cors({
+//     origin: "*",
+// }));
+// app.use(express.json()); //req.body
+// app.use(middleware.decodeToken);
 // app.use(express.static('build'))
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
