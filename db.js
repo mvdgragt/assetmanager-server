@@ -11,11 +11,11 @@ const mysql = require("mysql2")
 
 
 const pool = mysql.createPool({
-    host: DB_HOST,
-    user: DB_USER,
-    password: DB_PASSSWORD,
-    database: DB_NAME,
-    port: DB_PORT
+    host: 'containers-us-west-55.railway.app',
+    user: 'root',
+    password: '5NOSSCDlL9LV2b1svlOH',
+    database: 'railway',
+    port: 6016
 });
 
 // const pool = mysql.createPool({
