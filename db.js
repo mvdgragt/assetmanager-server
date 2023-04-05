@@ -1,10 +1,11 @@
-import {
+const config = require('./config')
+const {
 DB_HOST,
 DB_NAME,
 DB_PASSSWORD,
 DB_USER,
 DB_PORT
-} from './config'
+} = config
 const mysql = require("mysql2")
 
 
