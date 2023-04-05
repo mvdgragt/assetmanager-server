@@ -3,13 +3,13 @@ const mysql = require("mysql2")
 
 
 
-const pool = mysql.createPool({
-    host: 'containers-us-west-55.railway.app',
-    user: 'root',
-    password: '5NOSSCDlL9LV2b1svlOH',
-    database: 'railway',
-    port: 6016
-});
+// const pool = mysql.createPool({
+//     host: 'containers-us-west-55.railway.app',
+//     user: 'root',
+//     password: '5NOSSCDlL9LV2b1svlOH',
+//     database: 'railway',
+//     port: 6016
+// });
 
 // const pool = mysql.createPool({
 //     host: "containers-us-west-55.railway.app",
@@ -18,9 +18,9 @@ const pool = mysql.createPool({
 //     database: "railway"
 // });
 
- // const urlDB = "mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway"
+ const urlDB = "mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway"
 
-// const pool = mysql.createPool(urlDB);
+const pool = mysql.createPool(urlDB);
 
 // const pool = mysql.createPool({
 //     host: `${process.env.DB_HOST}`,
