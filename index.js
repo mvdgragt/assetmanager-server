@@ -3,8 +3,12 @@ const app = express();
 const cors = require('cors');
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
-import {PORT} from './config';
 // const bodyParser = require('body-parser')
+
+const config = require('./config')
+const {
+PORT
+} = config
 
 app.use(cors({
     origin: "*",
