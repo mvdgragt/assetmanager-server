@@ -9,14 +9,7 @@ const middleware = require('./src/middleware/index');
 app.use(cors());
 app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
-console.log(req.body)
 
-// app.use(cors({
-//     origin: "*",
-// }));
-// app.use(express.json()); //req.body
-// app.use(middleware.decodeToken);
-// app.use(express.static('build'))
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
     const montlyAssets = await pool.query("SELECT * FROM monthlyequipimport");
@@ -26,7 +19,6 @@ res.json(montlyAssets[0])
     console.error(err.message)
 }
 })
-//test
 //Upload monthly spreadsheet
 app.post('/monthlyupload', async (req, res) => {
 
@@ -140,7 +132,6 @@ app.delete("/persons/:ID", async (req,res) => {
 // router.options('/onloan', cors())
 app.get("/onloan", async (req,res) => {
     try {
-        res.setHeader('Content-Type', 'application/json');
         const allLoans = await pool.query("SELECT m.BookOutDate, m.BookInDate, CONCAT(p.FirstName, ' ', p.LastName)as full_name, p.Email, a.AssetNumber, a.SerialNumber, at.AssetType FROM movements m LEFT JOIN persons p ON p.ID = m.PersonID LEFT JOIN assets a ON a.ID = m.AssetID LEFT JOIN assettypes at ON at.ID = a.AssetTypeID WHERE m.BookInDate IS NULL AND a.AssetNumber IS NOT NULL");
     res.json(allLoans[0])
     } catch (err) {
