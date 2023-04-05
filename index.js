@@ -5,11 +5,6 @@ const pool = require("./db");
 const middleware = require('./src/middleware/index');
 // const bodyParser = require('body-parser')
 
-const config = require('./config')
-const {
-PORT
-} = config
-
 app.use(cors({
     origin: "*",
 }));
@@ -235,6 +230,6 @@ app.get("/movements/:id", async (req,res) => {
     }
 })
 
-app.listen( PORT, () => {
-    console.log("Server is running on port :", PORT);
+app.listen( 6016, () => {
+    console.log("Server is running on port: 6016");
 });
