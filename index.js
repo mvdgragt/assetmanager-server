@@ -6,10 +6,11 @@ const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
 // const bodyParser = require('body-parser')
 
-app.use(cors({
-    origin: "*",
-}));
+// app.use(cors({
+//     origin: "*",
+// }));
 
+app.use(cors({ origin: '*', credentials: true }))
 
 
 // Set headers for preflight request
