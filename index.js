@@ -10,8 +10,11 @@ const port = process.env.PORT || 5000;
 //     origin: "*",
 // }));
 
-app.use(cors({ origin: '*', credentials: true }))
-
+app.use(cors({ 
+    origin: '*', 
+    credentials: true,
+    preflightContinue: true,
+  }))
 
 // Set headers for preflight request
 // app.options('/onloan', {mode:'cors'});
