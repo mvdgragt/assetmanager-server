@@ -11,9 +11,7 @@ const port = process.env.PORT || 5000;
 // }));
 
 app.use(cors({ 
-    origin: '*', 
-    credentials: true,
-    preflightContinue: true,
+    origin: 'https://assetmanager.netlify.com'
   }))
 
 // Set headers for preflight request
