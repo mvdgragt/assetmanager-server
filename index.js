@@ -1,25 +1,50 @@
 const express = require("express");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
-// const bodyParser = require('body-parser')
+const port = process.env.PORT || 5000;
+const bodyParser = require('body-parser')
+// const readXlsxFile = require('read-excel-file/node');
+// const multer = require('multer')
+// const fs = require('fs')
+// const path = require('path')
+
+//middleware
+// app.use(cors({
+//    origin: "https://assetmanager.netlify.app",
+//   origin: "*",
+//   credentials: false
+// }));
 
 app.use(cors({
-    origin: "*",
+       origin: "*",
+
 }));
+
+// Set headers for preflight request
+app.options('/onloan', cors());
+
+// app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
 app.use(express.static('build'))
+app.use(bodyParser.json({ limit: '50mb' }));
+//ROUTES//
+
+// get data from monthlyEquipmenUpload
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
     const montlyAssets = await pool.query("SELECT * FROM monthlyequipimport");
+    // res.header("Access-Control-Allow-Origin", "https://assetmanager.netlify.app");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 res.json(montlyAssets[0])
     
 } catch (err) {
     console.error(err.message)
 }
 })
-//test
+
 //Upload monthly spreadsheet
 app.post('/monthlyupload', async (req, res) => {
 
@@ -85,10 +110,8 @@ app.get("/movements", async(req,res) => {
 //get all assets
 app.get("/allAssets", async(req,res) => {
     try {
- //      const allAssets = await pool.query("SELECT AssetNumber, SerialNumber, PurchaseDate, PurchaseValue, AssetDescription, CostCenter, at.AssetType FROM assets a LEFT JOIN assettypes at ON at.ID = a.AssetTypeID");
-       const allAssets = await pool.query("SELECT * FROM assets");
-
-       res.json(allAssets[0])
+       const allAssets = await pool.query("SELECT id, AssetNumber, SerialNumber, PurchaseDate, PurchaseValue, AssetDescription, CostCenter, at.AssetType FROM assets a LEFT JOIN assettypes at ON at.ID = a.AssetTypeID");
+        res.json(allAssets[0])
     } catch (err) {
         console.error(err.message);
     }
@@ -130,10 +153,11 @@ app.delete("/persons/:ID", async (req,res) => {
 
 
 //get all records that are on loan
-// router.options('/onloan', cors())
+
 app.get("/onloan", async (req,res) => {
     try {
         const allLoans = await pool.query("SELECT m.BookOutDate, m.BookInDate, CONCAT(p.FirstName, ' ', p.LastName)as full_name, p.Email, a.AssetNumber, a.SerialNumber, at.AssetType FROM movements m LEFT JOIN persons p ON p.ID = m.PersonID LEFT JOIN assets a ON a.ID = m.AssetID LEFT JOIN assettypes at ON at.ID = a.AssetTypeID WHERE m.BookInDate IS NULL AND a.AssetNumber IS NOT NULL");
+    
     res.json(allLoans[0])
     } catch (err) {
         console.error(err.message)
@@ -222,14 +246,13 @@ app.get("/movements/:id", async (req,res) => {
     try {
         const { id }  = req.params;
         const getmovementbyid = await pool.query(`SELECT * FROM movements WHERE PersonID = ${id}`,[id]);
-        res.setHeader('Content-Type', 'application/json');
-        res.json(getmovementbyid[0])
+       res.json(getmovementbyid[0])
     
     } catch (err) {
         console.error(err.message)
     }
 })
 
-app.listen( 6016, () => {
-    console.log("Server is running on port: 6016");
+app.listen(port, () => {
+    console.log("Server is running on port 5000");
 });
