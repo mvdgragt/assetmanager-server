@@ -1,4 +1,4 @@
-require("dotenv").config()
+//require("dotenv").config()
 
 const mysql = require("mysql2")
 
@@ -9,7 +9,7 @@ const mysql = require("mysql2")
 //     database: "assetmanager"
 // });
 
- const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}/${process.env.MYSQLDATABASE}`
+ const urlDB = "mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway"
 
 const pool = mysql.createPool(urlDB);
 
