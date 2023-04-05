@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
-const port = process.env.PORT || 5000;
+import {PORT} from './config';
 // const bodyParser = require('body-parser')
 
 app.use(cors({
@@ -231,6 +231,6 @@ app.get("/movements/:id", async (req,res) => {
     }
 })
 
-app.listen( 6016, () => {
-    console.log("Server is running on port 5000");
+app.listen( PORT, () => {
+    console.log("Server is running on port :", PORT);
 });
