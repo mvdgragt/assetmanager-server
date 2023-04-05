@@ -223,7 +223,8 @@ app.get("/movements/:id", async (req,res) => {
     try {
         const { id }  = req.params;
         const getmovementbyid = await pool.query(`SELECT * FROM movements WHERE PersonID = ${id}`,[id]);
-       res.json(getmovementbyid[0])
+        res.setHeader('Content-Type', 'application/json');
+        res.json(getmovementbyid[0])
     
     } catch (err) {
         console.error(err.message)
