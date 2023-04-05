@@ -9,7 +9,8 @@ app.use(cors({
     origin: "*",
 }));
 app.use(middleware.decodeToken);
-app.use(express.static('build'))
+app.use(express.json()); //req.body
+// app.use(express.static('build'))
 app.get("/getMontlyUploadList", async(req,res) => {
 try {
     const montlyAssets = await pool.query("SELECT * FROM monthlyequipimport");
