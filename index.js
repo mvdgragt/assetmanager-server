@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 // app.use(cors({
 //     origin: "*",
 // }));
-
+// test
 app.use(cors({ 
     origin: 'https://assetmanager.netlify.com'
   }))
