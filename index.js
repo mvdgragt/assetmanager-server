@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
