@@ -9,6 +9,7 @@ const middleware = require('./src/middleware/index');
 app.use(cors());
 app.use(express.json()); //req.body
 app.use(middleware.decodeToken);
+console.log(req.body)
 
 // app.use(cors({
 //     origin: "*",
