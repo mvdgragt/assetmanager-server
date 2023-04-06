@@ -25,20 +25,20 @@ const mysql = require('mysql2');
 //     database: process.env.DB_DATABASE,
 // });
 
-const pool = mysql.createPool({
-    host: process.env.MYSQLHOST,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSSWORD,
-    database: process.env.MYSQLDATABASE,
-});
+// const pool = mysql.createPool({
+//     host: process.env.MYSQLHOST,
+//     user: process.env.MYSQLUSER,
+//     password: process.env.MYSQLPASSSWORD,
+//     database: process.env.MYSQLDATABASE,
+// });
 
 
 //
 // const urlDB = "mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway"
 
-// const urlDB = `mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`
+const urlDB = `mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`
 
-//  const pool = mysql.createPool(urlDB);
+ const pool = mysql.createPool(urlDB);
 
 
 
