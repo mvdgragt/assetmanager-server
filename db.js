@@ -1,5 +1,7 @@
-import {createPool} from 'mysql2/promise'
 
+module.exports = pool.promise();
+
+import {createPool} from 'mysql2/promise'
 import {
   DB_HOST,
   DB_NAME,
