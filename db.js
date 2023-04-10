@@ -1,48 +1,17 @@
-require('dotenv').config();
-const mysql = require('mysql2');
+import {createPool} from 'mysql2/promise'
 
+import {
+  DB_HOST,
+  DB_NAME,
+  DB_PASSWORD,
+  DB_USER,
+  //DB_PORT, //include this one when using Railway, otherwise comment it out
+} from './config.js'
 
-
-// const pool = mysql.createPool({
-//     host: 'containers-us-west-55.railway.app',
-//     user: 'root',
-//     password: '5NOSSCDlL9LV2b1svlOH',
-//     database: 'railway',
-//     port: 6016
-// });
-
-const pool = mysql.createPool({
-    host: MYSQLHOST,
-    user: MYSQLUSER,
-    password: MYSQLPASSWORD,
-    database: MYSQLDATABASE,
-    port: MYSQLPORT
-});
-
-// const pool = mysql.createPool({
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSSWORD,
-//     database: process.env.DB_DATABASE,
-// });
-
-// const pool = mysql.createPool({
-//     host: process.env.MYSQLHOST,
-//     user: process.env.MYSQLUSER,
-//     password: process.env.MYSQLPASSSWORD,
-//     database: process.env.MYSQLDATABASE,
-// });
-
-
-//
-// const urlDB = "mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway"
-
-// const urlDB = `mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`
-
-//  const pool = mysql.createPool(urlDB);
-
-
-
-
-
-module.exports = pool.promise();
+export const pool = createPool({
+  user: DB_USER,
+  password: DB_PASSWORD,
+  host: DB_HOST,
+  database: DB_NAME,
+  //port: DB_PORT //include this one when using Railway, otherwise comment it out
+})
