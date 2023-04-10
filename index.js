@@ -229,8 +229,8 @@ app.post("/newMovement", async (req,res) => {
    //         const chosenPersonIDNum = Number(chosenPersonID);
    //         const chosenDeviceIDNum = Number(chosenDeviceID);
 
-            console.log(chosenPersonID);
-            console.log(chosenDeviceID);
+            console.log("test 1:", chosenPersonID);
+            console.log("test 2:", chosenDeviceID);
 //            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonIDNum, chosenDeviceIDNum])
             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonID, chosenDeviceID])
             res.json(updateMovements)
