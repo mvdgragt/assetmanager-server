@@ -4,7 +4,7 @@ const cors = require("cors");
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 // const readXlsxFile = require('read-excel-file/node');
 // const multer = require('multer')
 // const fs = require('fs')
@@ -20,7 +20,7 @@ app.use(cors({
 app.use(middleware.decodeToken);
 
 app.use(express.static('build'))
-app.use(bodyParser.json({ limit: '50mb' }));
+// app.use(bodyParser.json({ limit: '50mb' }));
 //ROUTES//
 
 // get data from monthlyEquipmenUpload
