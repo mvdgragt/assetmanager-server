@@ -229,8 +229,8 @@ app.post("/newMovement", async (req,res) => {
             console.log("chosenPersonID:", chosenPersonID);
             console.log("chosenDeviceID:", chosenDeviceID);
             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonID, chosenDeviceID])
-            res.json(updateMovements[0])
-            console.log(req.body)
+            res.json(updateMovements)
+          //  console.log(req.body)
         } catch (err) {
             console.error(err.message)
         }
