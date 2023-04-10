@@ -102,7 +102,7 @@ app.get("/movements", async(req,res) => {
 //get all assets
 app.get("/allAssets", async(req,res) => {
     try {
-       const allAssets = await pool.query("SELECT AssetNumber, SerialNumber, PurchaseDate, PurchaseValue, AssetDescription, CostCenter, at.AssetType FROM assets a LEFT JOIN assettypes at ON at.ID = a.AssetTypeID");
+       const allAssets = await pool.query("SELECT ID, AssetNumber, SerialNumber, PurchaseDate, PurchaseValue, AssetDescription, CostCenter, at.AssetType FROM assets a LEFT JOIN assettypes at ON at.ID = a.AssetTypeID");
         res.json(allAssets[0])
     } catch (err) {
         console.error(err.message);
@@ -227,7 +227,7 @@ app.post("/newMovement/", async (req,res) => {
     const {chosenPersonID,chosenDeviceID} = req.body;
         try {
     
-            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (CURRENT_TIMESTAMP(), NULL, ?, ?, ?)", [chosenPersonID, chosenDeviceID, chosenDeviceID])
+            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (CURRENT_TIMESTAMP(), NULL, ?, ?, ?)", [chosenPersonID, chosenDeviceID])
             res.json(updateMovements)
         } catch (err) {
             console.error(err.message)
