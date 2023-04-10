@@ -226,13 +226,19 @@ app.delete("/deleteasset/:SerialNumber", async (req,res) => {
 app.post("/newMovement", async (req,res) => {
         try {
             const {chosenPersonID, chosenDeviceID} = req.body;
-   //         const chosenPersonIDNum = Number(chosenPersonID);
-   //         const chosenDeviceIDNum = Number(chosenDeviceID);
+            const chosenPersonIDStr = chosenPersonID.toString();
+            const chosenDeviceIDStr = chosenDeviceID.toString();
+            
+            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, '-')", [chosenPersonIDStr, chosenDeviceIDStr]);
+            
 
-            console.log("test 1:", chosenPersonID);
-            console.log("test 2:", chosenDeviceID);
-//            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonIDNum, chosenDeviceIDNum])
-            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonID, chosenDeviceID])
+            //    //         const chosenPersonIDNum = Number(chosenPersonID);
+//    //         const chosenDeviceIDNum = Number(chosenDeviceID);
+
+//             console.log("test 1:", chosenPersonID);
+//             console.log("test 2:", chosenDeviceID);
+// //            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonIDNum, chosenDeviceIDNum])
+//             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonID, chosenDeviceID])
             res.json(updateMovements)
           //  console.log(req.body)
         } catch (err) {
