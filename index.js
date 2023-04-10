@@ -1,8 +1,8 @@
 import express from 'express';
 const app = express();
 import cors from 'cors';
-const pool = require("./db");
-const middleware = require('./src/middleware/index');
+import pool from './db';
+import middleware from './src/middleware/index';
 // const bodyParser = require('body-parser')
 
 //middleware
