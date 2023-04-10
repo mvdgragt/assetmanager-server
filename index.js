@@ -1,6 +1,6 @@
-import express from "express";
+import express from 'express';
 const app = express();
-const cors = require('cors');
+import cors from 'cors';
 const pool = require("./db");
 const middleware = require('./src/middleware/index');
 // const bodyParser = require('body-parser')
