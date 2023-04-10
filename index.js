@@ -223,27 +223,19 @@ app.delete("/deleteasset/:SerialNumber", async (req,res) => {
 //     }
 // })
 
-app.post("/newMovement/", async (req,res) => {
+app.post("/newMovement", async (req,res) => {
         try {
             const {chosenPersonID, chosenDeviceID} = req.body;
+            console.log(req.body)
             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonID, chosenDeviceID])
             res.json(updateMovements[0])
+            console.log(req.body)
         } catch (err) {
             console.error(err.message)
         }
     })
-
-
-    // app.post("/addNewDevice", async (req,res) => {
-    //     try {
-    //     const {AssetNumber,SerialNumber,PurchaseValue, CostCenter, AssetTypeID, AssetDescription} = req.body; 
-    //     const newDevice = await pool.query("INSERT INTO assets (AssetNumber,SerialNumber,PurchaseValue,AssetTypeID,AssetDescription,CostCenter,PurchaseDate) VALUES (?,?,?,?,?,?,NOW())", [AssetNumber,SerialNumber,PurchaseValue,AssetTypeID,AssetDescription,CostCenter]);
-    //     res.json(newDevice[0])
-    //     console.log(req.body)
-    // } catch (err) {
-    //     console.error(err.message)
-    // }})
-    
+// this works:
+// INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, 4, 4, "-") 
 
 app.get("/movements/:id", async (req,res) => {
     try {
