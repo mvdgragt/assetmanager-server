@@ -224,7 +224,8 @@ app.delete("/deleteasset/:SerialNumber", async (req,res) => {
 // })
 
 app.post("/newMovement/", async (req,res) => {
-    const {chosenPersonID,chosenDeviceID} = req.body;
+    const {data} = req.body;
+    console.log(data)
         try {
     
             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (CURRENT_TIMESTAMP(), NULL, ?, ?, ?)", [chosenPersonID, chosenDeviceID])
