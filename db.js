@@ -11,12 +11,13 @@ const mysql = require('mysql2');
 //     port: 6016
 // });
 
-// const pool = mysql.createPool({
-//     host: "containers-us-west-55.railway.app",
-//     user: "root",
-//     password: "5NOSSCDlL9LV2b1svlOH",
-//     database: "railway"
-// });
+const pool = mysql.createPool({
+    host: MYSQLHOST,
+    user: MYSQLUSER,
+    password: MYSQLPASSWORD,
+    database: MYSQLDATABASE,
+    port: MYSQLPORT
+});
 
 // const pool = mysql.createPool({
 //     host: process.env.DB_HOST,
@@ -36,9 +37,9 @@ const mysql = require('mysql2');
 //
 // const urlDB = "mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway"
 
-const urlDB = `mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`
+// const urlDB = `mysql://root:5NOSSCDlL9LV2b1svlOH@containers-us-west-55.railway.app:6016/railway`
 
- const pool = mysql.createPool(urlDB);
+//  const pool = mysql.createPool(urlDB);
 
 
 
