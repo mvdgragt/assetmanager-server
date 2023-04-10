@@ -210,19 +210,6 @@ app.delete("/deleteasset/:SerialNumber", async (req,res) => {
 })
 
 
-//Register and update new movement
-
-// app.put("/newMovement/", async (req,res) => {
-// const {chosenPersonID,chosenDeviceID} = req.body;
-//     try {
-
-//         const updateMovements = await pool.query(`UPDATE movements SET BookOutDate= CURRENT_TIMESTAMP(), BookInDate = NULL, PersonID = ? WHERE AssetID = ?`, [chosenPersonID, chosenDeviceID])
-//         res.json(updateMovements)
-//     } catch (err) {
-//         console.error(err.message)
-//     }
-// })
-
 app.post("/newMovement", async (req,res) => {
         try {
             const {chosenPersonID, chosenDeviceID} = req.body;
@@ -231,16 +218,7 @@ app.post("/newMovement", async (req,res) => {
             
             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, '-')", [chosenPersonIDStr, chosenDeviceIDStr]);
             
-
-            //    //         const chosenPersonIDNum = Number(chosenPersonID);
-//    //         const chosenDeviceIDNum = Number(chosenDeviceID);
-
-//             console.log("test 1:", chosenPersonID);
-//             console.log("test 2:", chosenDeviceID);
-// //            const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonIDNum, chosenDeviceIDNum])
-//             const updateMovements = await pool.query("INSERT INTO movements (BookOutDate, BookInDate, PersonID, AssetID, MovementDescription) VALUES (NOW(), NULL, ?, ?, "-")", [chosenPersonID, chosenDeviceID])
             res.json(updateMovements)
-          //  console.log(req.body)
         } catch (err) {
             console.error(err.message)
         }
