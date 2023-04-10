@@ -1,7 +1,7 @@
 import express from 'express';
 const app = express();
 import cors from 'cors';
-import pool from './db';
+import pool from './db.js';
 import middleware from './src/middleware/index';
 // const bodyParser = require('body-parser')
 
