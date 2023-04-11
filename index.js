@@ -185,16 +185,28 @@ app.get("/allPersons", async(req,res) => {
 
 //get information about the array that needs updating
 
-app.put("/updates/:serialNumber", async (req,res) => {
+app.put("/updates/:ID", async (req,res) => {
     try {
-        const {serialNumber} = req.params
-        const updatedItem = await pool.query(`UPDATE movements SET BookInDate = CURRENT_TIMESTAMP(), BookOutDate = NULL WHERE AssetID = (SELECT a.ID FROM assets a WHERE a.SerialNumber = ?)`,[serialNumber])     
+        const {ID} = req.params
+        const updatedItem = await pool.query(`UPDATE movements SET BookInDate = CURRENT_TIMESTAMP(), BookOutDate = NULL WHERE AssetID = (SELECT a.ID FROM assets a WHERE a.ID = ?)`,[ID])     
         res.json(updatedItem)
 
     } catch (err) {
         console.error(err.message)
     }
 })
+
+// original 
+// app.put("/updates/:serialNumber", async (req,res) => {
+//     try {
+//         const {serialNumber} = req.params
+//         const updatedItem = await pool.query(`UPDATE movements SET BookInDate = CURRENT_TIMESTAMP(), BookOutDate = NULL WHERE AssetID = (SELECT a.ID FROM assets a WHERE a.SerialNumber = ?)`,[serialNumber])     
+//         res.json(updatedItem)
+
+//     } catch (err) {
+//         console.error(err.message)
+//     }
+// })
 
 //get information about the array that needs updating
 
