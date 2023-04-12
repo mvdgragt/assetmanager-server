@@ -68,7 +68,7 @@ app.post('/monthlyupload', async (req, res) => {
 //   });
     
 //create a person
-app.post("/addNewPerson", async (req,res) => {
+app.post("/newPerson", async (req,res) => {
     try {
     const {FirstName,LastName} = req.body; 
     const newPerson = await pool.query("INSERT INTO persons (FirstName,LastName) VALUES (?,?)",[FirstName,LastName]);
