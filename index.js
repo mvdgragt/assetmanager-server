@@ -70,8 +70,8 @@ app.post('/monthlyupload', async (req, res) => {
 //create a person
 app.post("/addNewPerson", async (req,res) => {
     try {
-    const {FirstName,LastName,Email} = req.body; 
-    const newPerson = await pool.query("INSERT INTO persons (FirstName,LastName,Email) VALUES (?,?,?)",[FirstName,LastName,Email]);
+    const {FirstName,LastName} = req.body; 
+    const newPerson = await pool.query("INSERT INTO persons (FirstName,LastName) VALUES (?,?)",[FirstName,LastName]);
     //   const {FirstName,LastName,Email} = req.body; 
     //   const newPerson = await pool.query("INSERT INTO persons (ID,FirstName,LastName,Email,PersonNumber,Phone,UserName,Password,ManageBacIS,HbgID,IDHash,ParentEmail,PersonType,RelatedArray,Archived,SchoolClassID,Grade) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[ID,FirstName,LastName,Email,PersonNumber,Phone,UserName,Password,ManageBacIS,HbgID,IDHash,ParentEmail,PersonType,RelatedArray,Archived,SchoolClassID,Grade]);
     res.json(newPerson[0])
