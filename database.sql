@@ -10,3 +10,15 @@
    totalcost DECIMAL(10,2) NOT NULL,
    PRIMARY KEY (id)
  );
+
+ CREATE TABLE monthlyupload (
+ 	assetdescription VARCHAR(255),
+ 	assetnumber VARCHAR(15),
+ 	assettypename VARCHAR(50),
+ 	location VARCHAR(255),
+ 	purchasedate VARCHAR(20),
+ 	purchasevalue VARCHAR(10),
+ 	serialnumber VARCHAR(25),
+ 	totalcost INT(10),
+ 	KEY `id` (`serialnumber`) USING BTREE
+ );
