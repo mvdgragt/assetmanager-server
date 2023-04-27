@@ -1,27 +1,14 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
 const pool = require("./db");
-const middleware = require('./src/middleware/index');
+const cors = require('cors');
+// const middleware = require('./src/middleware/index');
 const port = process.env.PORT || 5000;
-const bodyParser = require('body-parser')
-// const readXlsxFile = require('read-excel-file/node');
-// const multer = require('multer')
-// const fs = require('fs')
-// const path = require('path')
 
 //middleware
-app.use(cors({
-   origin: "https://assetmanager.netlify.app",
-  origin: "*",
-  credentials: true
-}));
-// app.use(express.json()); //req.body
-app.use(middleware.decodeToken);
+ app.use(express.json()); //req.body
+ app.use(cors());
 
-app.use(express.static('build'))
-app.use(bodyParser.json());
-//ROUTES//
 
 // get data from monthlyEquipmenUpload
 app.get("/getMontlyUploadList", async(req,res) => {
@@ -37,36 +24,62 @@ res.json(montlyAssets[0])
 }
 })
 
-//Upload monthly spreadsheet
-app.post('/monthlyupload', async (req, res) => {
-
+app.get("/showNewAssets", async (req,res) => {
     try {
-        const { assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost } = req.body; // array of objects
-        const newAsset = await pool.query(`INSERT INTO monthlyupload (assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost]);
-        res.json(newAsset);
-
+        const newAssets = await pool.query("SELECT *FROM `monthlyupload` WHERE NOT EXISTS (SELECT * FROM `assets` WHERE `assets`.`AssetNumber` = `monthlyupload`.`assetnumber`) ORDER BY `monthlyupload`.`purchasedate` DESC")
+    res.json(newAssets[0])
     } catch (err) {
-
-           console.error(err.message);
-   
+        console.error(err.message)
     }
-}
-    
-  );
-  
-  
+})
 
-// app.post("/monthlyupload", async (req, res) => {
-//     try {
-//     const { assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost } = req.body;
-//     const newAsset = await pool.query(`INSERT INTO monthlyupload (assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost])
-//   res.json(newAsset[0])  
-// console.log(req.body)
-// } catch (err) {
-//       console.error(err.message);
-//     }
-//   });
+app.delete("/truncateAssetsNotInSpreadsheet", async (req,res) => {
+    try {
+        const removingAssets = await pool.query("DELETE FROM `assets` WHERE NOT EXISTS (SELECT * FROM `monthlyupload` WHERE `monthlyupload`.`assetnumber` = `assets`.`AssetNumber`)");
+        res.json(removingAssets[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+// TRUNCATE the table before inserting new data
+app.post("/truncateMonthlyUpload", async (req,res) => {
+    try {
+        await pool.query("TRUNCATE TABLE monthlyupload");
+        res.json({message: "monthlyupload table truncated"})
+    } catch {
+        
+    }
+})
+  
+app.post("/monthlyupload", async (req, res) => {
+    try {
+
+//Insert new data into the table
+    const { assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost } = req.body;
+    const newAsset = await pool.query(`INSERT INTO monthlyupload (assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [assetdescription, assetnumber, assettypename, location, purchasedate, purchasevalue, serialnumber, totalcost])
+  res.json(newAsset[0])  
+ // console.log(req.body)
+} catch (err) {
+      console.error(err.message);
+    }
+  });
     
+//upload assets from monthlyUpload into assets for those that aren't matching
+
+app.post("/monthlyUploadToAssets", async (req, res) => {
+    try {
+//Insert new data into the table
+    const { assetdescription, assetnumber, assetTypeID, costcenter, purchasedate, purchasevalue, serialnumber } = req.body;
+    const newAsset = await pool.query(`INSERT INTO assets (assetdescription, assetnumber, assetTypeID, costcenter, purchasedate, purchasevalue, serialnumber) VALUES (?, ?, ?, ?, ?, ?, ?)`, [assetdescription, assetnumber, assetTypeID, costcenter, purchasedate, purchasevalue, serialnumber])
+  res.json(newAsset[0])  
+console.log(req.body)
+} catch (err) {
+      console.error(err.message);
+    }
+  });
+
+
 //create a person
 app.post("/newPerson", async (req,res) => {
     try {
@@ -109,7 +122,7 @@ app.get("/allAssets", async(req,res) => {
     }
 })
 
-//get all persons
+
 app.get("/persons", async(req,res) => {
     try {
        const allPersons = await pool.query("SELECT CONCAT(FirstName, ' ', LastName)as full_name, Email, ID FROM persons");
