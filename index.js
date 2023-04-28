@@ -33,14 +33,14 @@ app.get("/showNewAssets", async (req,res) => {
     }
 })
 
-app.delete("/truncateAssetsNotInSpreadsheet", async (req,res) => {
-    try {
-        const removingAssets = await pool.query("DELETE FROM `assets` WHERE NOT EXISTS (SELECT * FROM `monthlyupload` WHERE `monthlyupload`.`assetnumber` = `assets`.`AssetNumber`)");
-        res.json(removingAssets[0])
-    } catch (err) {
-        console.error(err.message)
-    }
-})
+// app.delete("/truncateAssetsNotInSpreadsheet", async (req,res) => {
+//     try {
+//         const removingAssets = await pool.query("DELETE FROM `assets` WHERE NOT EXISTS (SELECT * FROM `monthlyupload` WHERE `monthlyupload`.`assetnumber` = `assets`.`AssetNumber`)");
+//         res.json(removingAssets[0])
+//     } catch (err) {
+//         console.error(err.message)
+//     }
+//  })
 
 // TRUNCATE the table before inserting new data
 app.post("/truncateMonthlyUpload", async (req,res) => {
